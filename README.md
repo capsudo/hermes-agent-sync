@@ -48,11 +48,58 @@ Install the plugin then define data repo URL + branch on each Hermes profile to 
 ```bash
 hermes plugins install capsudo/hermes-profile-sync --enable
 hermes config set plugins.entries.profile-sync.settings.data-repo-url https://github.com/ACCOUNT/hermes-profile.git
-hermes config set plugins.entries.profile-sync.settings.data-repo-branch master
+hermes config set plugins.entries.profile-sync.settings.data-repo-branch default
 ```
 
 > [!TIP]
 > If using Hermes Desktop those fields can be configured under Settings → Plugins → Profile Sync
+
+## Mapping
+
+In the examples below, “Gateway” identifies the Hermes backend serving the profiles, such as a **Local** gateway on a workstation or a **Remote** gateway running on Hermes Cloud or a VPS.
+
+### One branch = one profile
+
+On each profile, `data-repo-branch` is used to select the branch to sync with. Usually branch name = profile name but they can differ, for instance:
+
+| Gateway | Profile | Data branch |
+| --- | --- | --- |
+| Local | `default` | `default` |
+| Local | `work` | `work` |
+| Remote | `default` | `default` |
+| Remote | `research` | `work` |
+
+_In this example, all profiles use the same data repository URL. See [data repository URL](#data-repository-url) for other uses._
+
+> [!NOTE]
+> Each branch contains its own `sync.yaml` (at root) listing selected files for syncing.
+
+### Syncing profiles on the same gateway
+
+Two profiles in the same gateway can also use the same repository and branch. They sync selected content just like profiles on different machines, for instance:
+
+| Gateway | Profile | Data branch |
+| --- | --- | --- |
+| Local | `default` | `default` |
+| Local | `special` | `default` |
+
+_In this example, all profiles use the same data repository URL. See [data repository URL](#data-repository-url) for other uses._
+
+> [!NOTE]
+> Profiles opt in individually; creating another profile does not enroll it automatically.
+
+
+### Data repository URL
+
+The intended way to use this plugin is to have a single data repository (`data-repo-url`) where each branch represents a profile.
+However using different data repository URLs on different profiles is also possible:
+
+| Gateway | Profile | Data Repository | Data branch |
+| --- | --- | --- | --- |
+| Local | `default` | github.com/personal/hermes-profile.git | `default` |
+| Remote | `default` | github.com/personal/hermes-profile.git | `default` |
+| Local | `work` | github.com/organization/hermes-profile.git | `default` |
+| Remote | `work` | github.com/organization/hermes-profile.git | `default` |
 
 ## Syncing
 
