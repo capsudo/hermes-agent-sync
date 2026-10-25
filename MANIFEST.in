@@ -1,0 +1,5 @@
+include DEVELOPMENT.md
+recursive-include tests *.py
+prune .private
+prune .scratch
+prune .venv
