@@ -8,7 +8,7 @@ version = "0.1.0.dev0"
 description = "Synchronize selected Hermes profile files through a private Git repository."
 readme = "README.md"
 requires-python = ">=3.11"
-dependencies = []
+dependencies = ["PyYAML>=6,<7"]
 
 [project.optional-dependencies]
 dev = [
@@ -19,6 +19,9 @@ dev = [
 
 [project.scripts]
 hermes-agent-sync = "hermes_agent_sync.cli:main"
+
+[tool.setuptools.package-data]
+hermes_agent_sync = ["default-sync.yaml"]
 
 [tool.setuptools.packages.find]
 where = ["src"]

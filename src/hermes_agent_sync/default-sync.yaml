@@ -1,0 +1,11 @@
+# Shared, profile-relative selection. Exclusions always win.
+# Credentials, runtime state, and symlinks cannot be enabled by these rules.
+version: 1
+skip-symlinks: true
+include:
+  - SOUL.md
+  - memories/USER.md
+  - skills/**
+exclude:
+  # Machine-local by default; deliberately configurable, not a safety prohibition.
+  - memories/MEMORY.md
